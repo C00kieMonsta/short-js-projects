@@ -37,7 +37,6 @@ const reviews = [
   },
 ];
 
-
 // select DOM items
 const personImg = document.getElementById('person-img');
 const author = document.getElementById('author');
@@ -53,5 +52,35 @@ let currentItem = 0;
 
 // load initial item
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('Loaded');
+  updateReview();
+});
+
+function updateReview() {
+  const item = reviews[currentItem];
+  personImg.src = item.img;
+  author.textContent = item.name;
+  job.textContent = item.job;
+  info.textContent = item.text;
+}
+
+// show next person
+nextBtn.addEventListener('click', (e) => {
+  currentItem++;
+  currentItem = currentItem%reviews.length;
+  updateReview();
+});
+
+// show prev person
+prevBtn.addEventListener('click', (e) => {
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length-1;
+  }
+  updateReview();
+});
+
+// show random person
+randomBtn.addEventListener('click', (e) => {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  updateReview();
 });
